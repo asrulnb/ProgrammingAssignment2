@@ -50,7 +50,26 @@ cacheSolve <- function(x, ...) {
      
      x$setInverse(answer) # save the data to Cache
      
+     # return the answer
      return(answer)
      
-     ## Return a matrix that is the inverse of 'x'
 }
+
+### [ Sample running code ] ###
+
+## > myM <- matrix(c(1,4,3,5),nrow=2)
+## > myM
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    4    5
+## > test <- makeCacheMatrix(myM)
+## > cacheSolve(test)
+## new Calculation
+## [,1]       [,2]
+## [1,] -0.7142857  0.4285714
+## [2,]  0.5714286 -0.1428571
+## > cacheSolve(test)
+## getting cached data
+## [,1]       [,2]
+## [1,] -0.7142857  0.4285714
+## [2,]  0.5714286 -0.1428571
