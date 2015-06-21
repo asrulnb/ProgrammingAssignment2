@@ -1,15 +1,56 @@
-## Put comments here that give an overall description of what your
-## functions do
+## These pair of function will Solve the inversed of the matrix passed into it 
+## and cache the result so it can be used later.
 
-## Write a short comment describing this function
 
-makeCacheMatrix <- function(x = matrix()) {
+## This Function will create the construct to save the value passed into it and return
+## it back when needed.
 
+makeCacheMatrix <- function(myx = matrix()) {
+
+     invM <- NULL #initialize the value of Inverse Matrix with NULL
+     
+     set <- function(y) {
+          myx <<- y #overwrite the parent variable "myx" with value from "y"
+          invM <<- NULL #reset the "invM" value in parent to NULL
+     }
+     
+     get <- function() myx #pass the "myx" value to "get"
+     
+     setInverse <- function(inverse) invM <<- inverse #set the "invM" value to the parent "inverse" value
+     
+     getInverse <- function() return(invM) #pass the "invM" value to "getInverse"
+     
+     #return the value to parent
+     return(list(set = set, get = get, setInverse = setInverse, getInverse = getInverse))
 }
 
 
-## Write a short comment describing this function
+## This function checks if there are cached Inverse Matrix answer for the one passed to it.
+## It will use the cached value if present.
+## It will solve the inverse matrix and store the answer in the cache when not.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+     
+     ## Checks if the answer was previously created
+     answer <- x$getInverse() # call from Cache value
+     
+     if(!is.null(answer)) { # check if the answer is Not NULL (present in Cache)
+     
+          message("getting cached data") # indicate to user the value is from Cache
+          
+          return(answer) # return the answer
+          
+     }
+     
+     message("new Calculation")
+     
+     data <- x$get() # retrieve the data
+     
+     answer <- solve(data, ...) # calculate the inverse Matrix answer
+     
+     x$setInverse(answer) # save the data to Cache
+     
+     return(answer)
+     
+     ## Return a matrix that is the inverse of 'x'
 }
